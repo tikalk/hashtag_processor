@@ -1,0 +1,84 @@
+group = 'com.tikal.fuseday.thashtags'
+version = '1.0.0'
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url 'http://jcenter.bintray.com' }
+    }
+    dependencies {
+        classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: '1.1.1.RELEASE'
+        classpath group: 'com.jfrog.bintray.gradle', name: 'gradle-bintray-plugin', version: '0.3'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'maven-publish'
+apply plugin: 'bintray'
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+
+webAppDirName = 'app'
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+bintray {
+//    user = 'bkomraz1'
+//    key = 'd68fe59f5f98715515e0a403754b1befeb1e87d5'
+    user = 'hagzag'
+    key = '075f0066a9b6121b666cac6340c25044b5df0281'
+    publications = ['mavenJava']
+
+    pkg {
+        repo = 'maven'
+        name = 'hashtag-processor'
+        licenses = ['MIT']
+    }
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+configurations {
+    provided
+}
+
+sourceSets {
+    main {
+        compileClasspath += configurations.provided
+    }
+}
+repositories {
+
+    maven { url "http://repo.jenkins-ci.org/public/" }
+    maven { url "http://clojars.org/repo" }
+    maven { url "http://repo.maven.apache.org/maven2" }
+}
+dependencies {
+    compile group: 'storm', name: 'storm', version: '0.9.0.1'
+    compile group: 'joda-time', name: 'joda-time', version: '2.3'
+    compile group: 'org.json', name: 'json', version: '20140107'
+    compile group: 'com.google.code.geocoder-java', name: 'geocoder-java', version: '0.15'
+    compile group: 'redis.clients', name: 'jedis', version: '2.0.0'
+    compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.11'
+    compile group: 'net.wurstmeister.storm', name: 'storm-kafka-0.8-plus', version: '0.2.0'
+    compile(group: 'org.apache.solr', name: 'solr-solrj', version: '4.6.0') {
+        exclude(module: 'zookeeper')
+    }
+
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+test {
+    scanForTestClasses = false
+}

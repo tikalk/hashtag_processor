@@ -1,5 +1,4 @@
-language: java 
-script: mvn install 
-jdk: 
- - oraclejdk8
-after_success: mvn deploy
+language: java
+script: ./gradlew clean build
+jdk: oraclejdk8
+after_success: ./gradlew bintrayUpload

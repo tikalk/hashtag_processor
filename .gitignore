@@ -1,3 +1,7 @@
 .project
 .settings
 target
+build
+.gradle
+.idea
+.mine
