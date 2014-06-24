@@ -1,61 +1,122 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.tikal.fuseday.thashtags</groupId>
-    <artifactId>thashtags</artifactId>
-    <version>1.0.0</version>
-    <packaging>jar</packaging>
-    <name>realtime-thashtags</name>
+	<groupId>com.tikal.fuseday.thashtags</groupId>
+	<artifactId>thashtags</artifactId>
+	<version>1.0.0</version>
+	<packaging>jar</packaging>
+	<name>realtime-thashtags</name>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>storm</groupId>
-            <artifactId>storm</artifactId>
-            <version>0.9.0.1</version>
-            <!-- in a real topology that will be deploy to a real cluster, scope should be set to provided
-                 as shown below. we're keeping it in default 'compile' scope to allow for easy execution with
-                 maven in local cluster mode -->
-            <!-- <scope>provided</scope> -->
-        </dependency>
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
-            <version>2.3</version>
-        </dependency>
+	<scm>
+		<connection>scm:git:https://github.com/tikalk/hashtag_processor.git</connection>
+		<developerConnection>scm:git:git@github.com:tikalk/hashtag_processor.git</developerConnection>
+		<url>https://github.com/tikalk/hashtag_processor</url>
+		<tag>HEAD</tag>
+	</scm>
 
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20140107</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>com.google.code.geocoder-java</groupId>
-            <artifactId>geocoder-java</artifactId>
-            <version>0.15</version>
-        </dependency>
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
-            <version>2.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-            <version>1.9.11</version>
-        </dependency>
+	<distributionManagement>
+		<repository>
+			<id>bintray</id>
+			<url>https://api.bintray.com/maven/tikalk/hashtag-processor/hashtag-processor</url>
+		</repository>
+	</distributionManagement>
+
+	<!-- http://dl.bintray.com/tikalk/hashtag-processor -->
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.4.1</version>
+				<configuration>
+					<useReleaseProfile>false</useReleaseProfile>
+					<releaseProfiles>release</releaseProfiles>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<profiles>
+  <profile>
+    <id>release</id>
+    <build>
+      <plugins>
+        <plugin>
+          <artifactId>maven-source-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>attach-sources</id>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <!-- <plugin>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>attach-javadocs</id>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin> -->
+      </plugins>
+    </build>
+  </profile>
+</profiles>
+
+	<dependencies>
 		<dependency>
-		  <groupId>net.wurstmeister.storm</groupId>
-		  <artifactId>storm-kafka-0.8-plus</artifactId>
-		  <version>0.2.0</version>
+			<groupId>storm</groupId>
+			<artifactId>storm</artifactId>
+			<version>0.9.0.1</version>
+			<!-- in a real topology that will be deploy to a real cluster, scope should 
+				be set to provided as shown below. we're keeping it in default 'compile' 
+				scope to allow for easy execution with maven in local cluster mode -->
+			<!-- <scope>provided</scope> -->
+		</dependency>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20140107</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.code.geocoder-java</groupId>
+			<artifactId>geocoder-java</artifactId>
+			<version>0.15</version>
+		</dependency>
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.11</version>
+		</dependency>
+		<dependency>
+			<groupId>net.wurstmeister.storm</groupId>
+			<artifactId>storm-kafka-0.8-plus</artifactId>
+			<version>0.2.0</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -64,51 +125,51 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-              <groupId>org.apache.solr</groupId>
-              <artifactId>solr-solrj</artifactId>
-              <version>4.6.0</version>
-              <exclusions>
-              	<exclusion>              		
-					  <groupId>org.apache.zookeeper</groupId>
-					  <artifactId>zookeeper</artifactId>
-              	</exclusion>
-              </exclusions>
-         </dependency>
-         
-    </dependencies>
+			<groupId>org.apache.solr</groupId>
+			<artifactId>solr-solrj</artifactId>
+			<version>4.6.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.zookeeper</groupId>
+					<artifactId>zookeeper</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <archive>
-                        <manifest>
-                            <mainClass>com.tikal.fullstack.heatmap.topology.LocalTopologyRunner</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
+	</dependencies>
 
-            </plugin>
-        </plugins>
-    </build>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<archive>
+						<manifest>
+							<mainClass>com.tikal.fullstack.heatmap.topology.LocalTopologyRunner</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
 
-    <repositories>
-        <repository>
-            <id>clojars.org</id>
-            <url>http://clojars.org/repo</url>
-        </repository>
-    </repositories>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>clojars.org</id>
+			<url>http://clojars.org/repo</url>
+		</repository>
+	</repositories>
 </project>
