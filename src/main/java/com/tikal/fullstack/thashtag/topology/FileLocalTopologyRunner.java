@@ -1,14 +1,14 @@
-package com.tikal.fullstack.heatmap.topology;
+package com.tikal.fullstack.thashtag.topology;
 
 import backtype.storm.Config;
 import backtype.storm.LocalCluster;
 import backtype.storm.topology.TopologyBuilder;
 import backtype.storm.tuple.Fields;
 
-import com.tikal.fullstack.heatmap.topology.bolts.HashtagAggregatorBolt;
-import com.tikal.fullstack.heatmap.topology.bolts.HashtagPersistorBolt;
-import com.tikal.fullstack.heatmap.topology.bolts.HashtagTokenizerBolt;
-import com.tikal.fullstack.heatmap.topology.spouts.TweetsFileSpout;
+import com.tikal.fullstack.thashtag.topology.bolts.HashtagAggregatorBolt;
+import com.tikal.fullstack.thashtag.topology.bolts.HashtagPersistorBolt;
+import com.tikal.fullstack.thashtag.topology.bolts.HashtagTokenizerBolt;
+import com.tikal.fullstack.thashtag.topology.spouts.TweetsFileSpout;
 
 public class FileLocalTopologyRunner {
 	public static void main(String[] args) {

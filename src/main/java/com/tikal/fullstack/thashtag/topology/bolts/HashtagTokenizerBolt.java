@@ -1,4 +1,4 @@
-package com.tikal.fullstack.heatmap.topology.bolts;
+package com.tikal.fullstack.thashtag.topology.bolts;
 
 import java.util.HashSet;
 import java.util.Set;

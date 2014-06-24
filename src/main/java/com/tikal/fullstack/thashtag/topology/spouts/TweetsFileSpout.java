@@ -1,4 +1,4 @@
-package com.tikal.fullstack.heatmap.topology.spouts;
+package com.tikal.fullstack.thashtag.topology.spouts;
 
 
 import java.io.IOException;
