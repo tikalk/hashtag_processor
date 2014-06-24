@@ -2,4 +2,4 @@ language: java
 script: mvn package 
 jdk: 
  - oraclejdk8
-after_success: mvn release:prepare release:perform
+after_success: mvn -B release:prepare release:perform -DreleaseVersion=1.0 -DdevelopmentVersion=2.0-SNAPSHOT -Dtag=v1.0
